@@ -1,7 +1,6 @@
 var str = window.location.href;
 var url = new URL(str);
 let id  = url.searchParams.get("id");
-console.log(id);
 let articles;
 
 // récuperer l'ID des canapés 
