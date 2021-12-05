@@ -42,10 +42,9 @@ function afficherProduit(){
 }
 
 
-const choixCouleur = () =>{           //crée un élément <option> pour chaque couleur
+const choixCouleur = () =>{           //crée un élément pour chaque option de couleur dans le tableau
 
   let nbrCouleur        = articles.colors.length;
- 
   for (var i = 0; i < nbrCouleur; i++){
 
       optionCouleur  = document.createElement('option');
@@ -58,23 +57,65 @@ const choixCouleur = () =>{           //crée un élément <option> pour chaque 
 const selectionCouleur = document.querySelector('#colors')
 const btnPanier        = document.querySelector('#addToCart')
 const quantite        = document.querySelector('#quantity');
-btnPanier.addEventListener( 'click', (produitEnregistrer) => {
 
-    produitEnregistrer = {
+btnPanier.addEventListener( 'click', (produitChoisie) => {
+  let produitLocalStorage = [];
+
+  produitChoisie = {      //creation de l'objet produit choisie pour stocker les valeurs choisie par l'utilisateur.
+
 
     id                : id,
     couleurSelectione : selectionCouleur.value,
-    quantité          : quantite.value,
-    prix              : quantite.value * prixProduit.innerHTML
+    quantite          : quantite.value,
+    prix              : prixProduit.innerHTML ,
+    prixBase          : prixProduit.innerHTML,
+    nom               : articles.name,
+    image             : articles.imageUrl,
+    altImg            : articles.altTxt
+  }
+  console.log(selectionCouleur.value)
   
+if ( produitChoisie.quantite <= 0 || produitChoisie.quantite >  100){     //Si la quantité choisie par l'utilisteur est inferieur ou égal à 0 ou superieur à 100. afficher une alerte
+    alert('vous devez choisir une quantité compris entre 1 et 100');
+  }
+  
+else if (selectionCouleur.value == "" ){
+    alert('Vous devez choisir une couleur');
+  } 
+  
+else{     
+  
+  if (localStorage.getItem('produit')){                                    //Si il y a quelque chose dans le Local Storage verifie si il est le produit choisie est le meme 
+
+      produitLocalStorage   =  JSON.parse(localStorage.getItem("produit"));
+      const resultatTrouver = produitLocalStorage.find(
+        (el) => el.id === produitChoisie.id && el.couleurSelectione === produitChoisie.couleurSelectione);
+  
+        if (resultatTrouver){
+          var total = parseInt(resultatTrouver.quantite) + parseInt(produitChoisie.quantite); 
+          resultatTrouver.quantite = total;  
+          console.log(total) 
+          resultatTrouver.prix = resultatTrouver.quantite * produitChoisie.prix;
+          localStorage.setItem("produit", JSON.stringify(produitLocalStorage));      
+        }
+        else {   
+          produitChoisie.prix = prixProduit.innerHTML * quantite.value
+          produitLocalStorage.push(produitChoisie);
+          localStorage.setItem("produit", JSON.stringify(produitLocalStorage));    
+      }
   }
 
-  let tableauProduit = [];
-
-  if (localStorage.getItem('produit')  !== null){
-    tableauProduit   =  JSON.parse(localStorage.getItem("products"));
+  else {                                  
+    produitChoisie.prix = prixProduit.innerHTML * quantite.value                                     // sinon pousse le directement dans le local storage
+      produitLocalStorage.push(produitChoisie);
+      localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
   }
-  tableauProduit.push(produitEnregistrer)
-  localStorage.setItem("products", JSON.stringify(tableauProduit));
- 
-}) 
+
+}
+    
+
+
+   console.log(produitLocalStorage)
+
+
+    })   

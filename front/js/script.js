@@ -13,7 +13,7 @@ let articles;
       articles = await requette.json();
       console.log(articles);
       afficherProduit(articles)
-     
+
     }
 }
 
