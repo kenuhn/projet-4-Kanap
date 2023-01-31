@@ -1,15 +1,21 @@
-# Kanap #
+#KANAP.
 
-This is the front end and back end server for Project 5 of the Web Developer path.
+Pour ce pojet, je j'ai du implementer  l'aide du javascript natif toute la partie front-end 
+plus précisement le parf
+d'un site de E-commerce spécialisé dans les capés.
+les grands axes de ce projet sont:
 
-### Back end Prerequisites ###
+- l'apprentissage du Javascript
+- les appel à l'api avec fetch et xmlhttpRequest
+- La création d'un parcours d'achat (panier, suppression ajout de nouveau produit etc ..)
 
-You will need to have Node and `npm` installed locally on your machine.
+### Prérequis pour le backend ####
 
-### Back end Installation ###
+Pour utiliser le backend installer npm 
 
-Clone this repo. From the "back" folder of the project, run `npm install`. You 
-can then run the server with `node server`. 
-The server should run on `localhost` with default port `3000`. If the
-server runs on another port for any reason, this is printed to the
-console when the server starts, e.g. `Listening on port 3001`.
+### Installation du back-end ###
+
+Clonez ce dépôt. Depuis le dossier "back" du projet, lancez `npm install`. Vous 
+pouvez ensuite lancer le serveur avec `node server`. 
+Le serveur devrait tourner sur `localhost` avec le port par défaut `3000`. 
+Si le serveur tourne sur un autre port pour une raison quelconque, cela e
